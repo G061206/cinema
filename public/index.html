@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,49 +14,95 @@
     <div class="container">
         <!-- 头部 -->
         <header class="header">
-            <h1>即用直播间</h1>
+            <h1>🎬 即用直播间</h1>
             <div class="header-info">
                 <span class="online-count">👥 在线人数: <span id="onlineCount">0</span></span>
                 <span class="connection-status" id="connectionStatus">
                     <span class="status-dot"></span>
                     <span id="statusText">连接中...</span>
                 </span>
-                <!-- 添加主题切换按钮 -->
-                <button id="themeToggle" class="btn btn-small">
-                    <span id="themeIcon">🌞</span>
-                </button>
             </div>
         </header>
-        <!-- 其余内容保持不变 -->
+
+        <!-- 主内容区 -->
+        <div class="main-content">
+            <!-- 视频播放区 -->
+            <div class="video-section">
+                <div class="video-container">
+                    <video id="videoPlayer" controls autoplay muted>
+                        您的浏览器不支持视频播放
+                    </video>
+                    <div class="video-overlay" id="videoOverlay">
+                        <div class="overlay-content">
+                            <h2>🎥 等待放映员开始播放</h2>
+                            <p>请输入直播流地址并点击"开始播放"</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 播放控制 -->
+                <div class="video-controls">
+                    <div class="stream-input-group">
+                        <label for="streamUrl">直播流地址:</label>
+                        <input 
+                            type="text" 
+                            id="streamUrl" 
+                            placeholder="例如: http://your-srs-server:8080/live/room.flv"
+                            value="http://localhost:8080/live/room.flv"
+                        >
+                        <button id="playBtn" class="btn btn-primary">▶ 开始播放</button>
+                        <button id="stopBtn" class="btn btn-secondary" disabled>⏹ 停止播放</button>
+                    </div>
+                    <div class="stream-tips">
+                        <p>💡 支持格式: FLV (推荐) / HLS (.m3u8)</p>
+                        <p>📺 FLV示例: http://服务器IP:8080/live/房间名.flv</p>
+                        <p>📺 HLS示例: http://服务器IP:8080/live/房间名.m3u8</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 聊天区 -->
+            <div class="chat-section">
+                <div class="chat-header">
+                    <h3>💬 聊天室</h3>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <div class="system-message">欢迎来到影院！等待连接服务器...</div>
+                </div>
+                
+                <div class="chat-input-area">
+                    <div class="nickname-area">
+                        <label for="nicknameInput">昵称:</label>
+                        <input 
+                            type="text" 
+                            id="nicknameInput" 
+                            placeholder="设置你的昵称"
+                            maxlength="20"
+                        >
+                        <button id="setNicknameBtn" class="btn btn-small">设置</button>
+                    </div>
+                    <div class="message-input-group">
+                        <input 
+                            type="text" 
+                            id="messageInput" 
+                            placeholder="输入消息..."
+                            maxlength="500"
+                            disabled
+                        >
+                        <button id="sendBtn" class="btn btn-primary" disabled>发送</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>🎞️ 在线影院系统 | 基于 SRS + WebSocket + WebRTC</p>
+        </footer>
     </div>
 
-    <!-- 添加主题初始化脚本 -->
-    <script>
-        // 检查系统主题偏好
-        function getSystemTheme() {
-            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
-
-        // 从localStorage获取保存的主题，如果没有则使用系统主题
-        const savedTheme = localStorage.getItem('theme') || getSystemTheme();
-        document.documentElement.setAttribute('data-theme', savedTheme);
-        updateThemeIcon(savedTheme);
-
-        // 更新主题图标
-        function updateThemeIcon(theme) {
-            const icon = document.getElementById('themeIcon');
-            icon.textContent = theme === 'dark' ? '🌙' : '🌞';
-        }
-
-        // 主题切换监听
-        document.getElementById('themeToggle').addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
-        });
-    </script>
     <script src="app.js"></script>
 </body>
 </html>
+
