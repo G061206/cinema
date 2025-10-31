@@ -19,13 +19,39 @@ const elements = {
     setNicknameBtn: document.getElementById('setNicknameBtn'),
     onlineCount: document.getElementById('onlineCount'),
     statusText: document.getElementById('statusText'),
-    connectionStatus: document.getElementById('connectionStatus')
+    connectionStatus: document.getElementById('connectionStatus'),
+    themeToggle: document.getElementById('themeToggle')
 };
 
 // 初始化
 function init() {
     connectWebSocket();
     setupEventListeners();
+    setupTheme();
+}
+
+// 主题切换
+function setupTheme() {
+    const themeToggle = elements.themeToggle;
+    const themeIcon = themeToggle.querySelector('.theme-icon');
+    const docElement = document.documentElement;
+
+    const applyTheme = (theme) => {
+        docElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        themeIcon.textContent = theme === 'dark' ? '🌙' : '🌞';
+    };
+
+    // 页面加载时应用保存的主题
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    applyTheme(savedTheme);
+
+    // 点击切换主题
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = docElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        applyTheme(newTheme);
+    });
 }
 
 // 连接 WebSocket
