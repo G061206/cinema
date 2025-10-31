@@ -4,11 +4,52 @@
     box-sizing: border-box;
 }
 
+:root {
+    --bg-color: #f5f5f5;
+    --text-color: #333;
+    --card-bg-color: rgba(255, 255, 255, 0.95);
+    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --border-color: #f0f0f0;
+    --input-border-color: #ddd;
+    --input-bg-color: #fff;
+    --text-muted-color: #666;
+    --text-light-muted-color: #999;
+    --control-bg-color: #f8f9fa;
+    --chat-messages-bg: #fafafa;
+    --system-message-bg: #f0f0f0;
+    --message-bg: white;
+    --scrollbar-thumb-color: #ccc;
+    --scrollbar-thumb-hover-color: #aaa;
+}
+
+[data-theme='dark'] {
+    --bg-color: #1a1a2e;
+    --text-color: #e0e0e0;
+    --card-bg-color: rgba(26, 26, 46, 0.85);
+    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    --primary-color: #7b8cde;
+    --secondary-color: #8a64a5;
+    --border-color: #2a2a4a;
+    --input-border-color: #4a4a6a;
+    --input-bg-color: #1e1e3f;
+    --text-muted-color: #a0a0c0;
+    --text-light-muted-color: #8080a0;
+    --control-bg-color: #1e1e3f;
+    --chat-messages-bg: #161625;
+    --system-message-bg: #2a2a4a;
+    --message-bg: #1e1e3f;
+    --scrollbar-thumb-color: #4a4a6a;
+    --scrollbar-thumb-hover-color: #6a6a8a;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f5f5f5;
-    color: #333;
+    background: var(--bg-color);
+    color: var(--text-color);
     min-height: 100vh;
+    transition: background 0.3s, color 0.3s;
 }
 
 .container {
@@ -22,19 +63,20 @@ body {
 
 /* 头部 */
 .header {
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--card-bg-color);
     padding: 20px 30px;
     border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--card-shadow);
     margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: background 0.3s;
 }
 
 .header h1 {
     font-size: 28px;
-    color: #667eea;
+    color: var(--primary-color);
 }
 
 .header-info {
@@ -46,7 +88,7 @@ body {
 .online-count {
     font-size: 16px;
     font-weight: 600;
-    color: #555;
+    color: var(--text-muted-color);
 }
 
 .connection-status {
@@ -92,10 +134,11 @@ body {
 
 /* 视频区域 */
 .video-section {
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--card-bg-color);
     border-radius: 15px;
     padding: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--card-shadow);
+    transition: background 0.3s;
 }
 
 .video-container {
@@ -153,9 +196,10 @@ body {
 
 /* 播放控制 */
 .video-controls {
-    background: #f8f9fa;
+    background: var(--control-bg-color);
     padding: 20px;
     border-radius: 10px;
+    transition: background 0.3s;
 }
 
 .stream-input-group {
@@ -168,25 +212,27 @@ body {
 
 .stream-input-group label {
     font-weight: 600;
-    color: #555;
+    color: var(--text-muted-color);
 }
 
 .stream-input-group input {
     padding: 10px 15px;
-    border: 2px solid #ddd;
+    border: 2px solid var(--input-border-color);
+    background-color: var(--input-bg-color);
+    color: var(--text-color);
     border-radius: 8px;
     font-size: 14px;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, background-color 0.3s;
 }
 
 .stream-input-group input:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: var(--primary-color);
 }
 
 .stream-tips {
     font-size: 13px;
-    color: #666;
+    color: var(--text-muted-color);
     line-height: 1.6;
 }
 
@@ -196,29 +242,32 @@ body {
 
 /* 聊天区域 */
 .chat-section {
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--card-bg-color);
     border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--card-shadow);
     display: flex;
     flex-direction: column;
     max-height: 800px;
+    transition: background 0.3s;
 }
 
 .chat-header {
     padding: 20px;
-    border-bottom: 2px solid #f0f0f0;
+    border-bottom: 2px solid var(--border-color);
+    transition: border-color 0.3s;
 }
 
 .chat-header h3 {
     font-size: 20px;
-    color: #667eea;
+    color: var(--primary-color);
 }
 
 .chat-messages {
     flex: 1;
     overflow-y: auto;
     padding: 20px;
-    background: #fafafa;
+    background: var(--chat-messages-bg);
+    transition: background 0.3s;
 }
 
 .chat-messages::-webkit-scrollbar {
@@ -226,21 +275,22 @@ body {
 }
 
 .chat-messages::-webkit-scrollbar-thumb {
-    background: #ccc;
+    background: var(--scrollbar-thumb-color);
     border-radius: 4px;
 }
 
 .chat-messages::-webkit-scrollbar-thumb:hover {
-    background: #aaa;
+    background: var(--scrollbar-thumb-hover-color);
 }
 
 .message {
     margin-bottom: 12px;
     padding: 10px 15px;
     border-radius: 8px;
-    background: white;
+    background: var(--message-bg);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     animation: slideIn 0.3s ease;
+    transition: background 0.3s;
 }
 
 @keyframes slideIn {
@@ -262,38 +312,40 @@ body {
 
 .message-nickname {
     font-weight: 600;
-    color: #667eea;
+    color: var(--primary-color);
     font-size: 14px;
 }
 
 .message-time {
     font-size: 11px;
-    color: #999;
+    color: var(--text-light-muted-color);
 }
 
 .message-content {
-    color: #333;
+    color: var(--text-color);
     font-size: 14px;
     word-wrap: break-word;
 }
 
 .system-message {
     text-align: center;
-    color: #999;
+    color: var(--text-light-muted-color);
     font-size: 13px;
     margin: 10px 0;
     padding: 8px;
-    background: #f0f0f0;
+    background: var(--system-message-bg);
     border-radius: 5px;
     font-style: italic;
+    transition: background 0.3s, color 0.3s;
 }
 
 /* 聊天输入区 */
 .chat-input-area {
     padding: 20px;
-    border-top: 2px solid #f0f0f0;
-    background: white;
+    border-top: 2px solid var(--border-color);
+    background: var(--message-bg);
     border-radius: 0 0 15px 15px;
+    transition: background 0.3s, border-color 0.3s;
 }
 
 .nickname-area {
@@ -305,16 +357,19 @@ body {
 
 .nickname-area label {
     font-weight: 600;
-    color: #555;
+    color: var(--text-muted-color);
     font-size: 14px;
 }
 
 .nickname-area input {
     flex: 1;
     padding: 8px 12px;
-    border: 2px solid #ddd;
+    border: 2px solid var(--input-border-color);
+    background-color: var(--input-bg-color);
+    color: var(--text-color);
     border-radius: 8px;
     font-size: 14px;
+    transition: border-color 0.3s, background-color 0.3s;
 }
 
 .message-input-group {
@@ -325,15 +380,18 @@ body {
 .message-input-group input {
     flex: 1;
     padding: 12px 15px;
-    border: 2px solid #ddd;
+    border: 2px solid var(--input-border-color);
+    background-color: var(--input-bg-color);
+    color: var(--text-color);
     border-radius: 8px;
     font-size: 14px;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, background-color 0.3s;
 }
 
-.message-input-group input:focus {
+.message-input-group input:focus,
+.nickname-area input:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: var(--primary-color);
 }
 
 /* 按钮 */
@@ -354,7 +412,7 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     color: white;
 }
 
@@ -377,17 +435,24 @@ body {
     font-size: 13px;
 }
 
+#themeToggle {
+    background: var(--control-bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--input-border-color);
+}
+
 /* 页脚 */
 .footer {
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--card-bg-color);
     padding: 15px;
     border-radius: 15px;
     text-align: center;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--card-shadow);
+    transition: background 0.3s;
 }
 
 .footer p {
-    color: #666;
+    color: var(--text-muted-color);
     font-size: 14px;
 }
 
