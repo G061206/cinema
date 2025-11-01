@@ -186,7 +186,7 @@ function showDanmaku(data) {
     danmakuItem.style.top = `${randomTop}%`;
 
     // 设置随机动画时长，让弹幕速度不同
-    const randomDuration = Math.random() * 5 + 8; // 8-13秒
+    const randomDuration = Math.random() * 5 + 6; // 6-11秒
     danmakuItem.style.animationDuration = `${randomDuration}s`;
 
     // 弹幕动画结束后从DOM中移除，防止内存泄漏
