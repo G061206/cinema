@@ -9,6 +9,7 @@ let hlsPlayer = null;
 const elements = {
     videoPlayer: document.getElementById('videoPlayer'),
     videoOverlay: document.getElementById('videoOverlay'),
+    danmakuContainer: document.getElementById('danmakuContainer'), // 新增：弹幕容器
     streamUrl: document.getElementById('streamUrl'),
     playBtn: document.getElementById('playBtn'),
     stopBtn: document.getElementById('stopBtn'),
@@ -115,6 +116,7 @@ function handleWebSocketMessage(data) {
             
         case 'chat':
             addChatMessage(data);
+            showDanmaku(data); // 新增：显示弹幕
             break;
             
         case 'online_count':
@@ -169,6 +171,30 @@ function addChatMessage(data) {
     
     elements.chatMessages.appendChild(messageDiv);
     scrollToBottom();
+}
+
+// 新增：显示弹幕
+function showDanmaku(data) {
+    if (!elements.danmakuContainer) return;
+
+    const danmakuItem = document.createElement('div');
+    danmakuItem.className = 'danmaku-item';
+    danmakuItem.textContent = escapeHtml(data.message);
+
+    // 设置随机垂直位置，避免重叠 (使用85%的屏幕高度以防溢出)
+    const randomTop = Math.random() * 85;
+    danmakuItem.style.top = `${randomTop}%`;
+
+    // 设置随机动画时长，让弹幕速度不同
+    const randomDuration = Math.random() * 5 + 8; // 8-13秒
+    danmakuItem.style.animationDuration = `${randomDuration}s`;
+
+    // 弹幕动画结束后从DOM中移除，防止内存泄漏
+    danmakuItem.addEventListener('animationend', () => {
+        danmakuItem.remove();
+    });
+
+    elements.danmakuContainer.appendChild(danmakuItem);
 }
 
 // 滚动到底部
