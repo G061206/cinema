@@ -488,7 +488,7 @@ body {
     }
 }
 
-/* 弹幕样式 */
+/* 弹幕样式 (已修复) */
 .danmaku-container {
     position: absolute;
     top: 0;
@@ -502,26 +502,34 @@ body {
 
 .danmaku-item {
     position: absolute;
-    right: 0;
-    transform: translateX(100%);
+    left: 100%; /* 从容器右侧外部开始 */
     white-space: nowrap;
     font-size: 22px;
     font-weight: bold;
     color: #fff;
     text-shadow: 
-        2px 2px 4px rgba(0,0,0,0.7),
-        -2px -2px 4px rgba(0,0,0,0.7),
-        2px -2px 4px rgba(0,0,0,0.7),
-        -2px 2px 4px rgba(0,0,0,0.7);
-    animation: danmaku-scroll 10s linear;
+        1px 1px 3px rgba(0,0,0,0.6),
+        -1px -1px 3px rgba(0,0,0,0.6),
+        1px -1px 3px rgba(0,0,0,0.6),
+        -1px 1px 3px rgba(0,0,0,0.6);
     will-change: transform;
+    animation-name: danmaku-scroll;
+    animation-timing-function: linear;
 }
 
 @keyframes danmaku-scroll {
     from {
-        transform: translateX(100%);
+        transform: translateX(0);
     }
     to {
-        transform: translateX(-100%);
+        /* 移动整个视口宽度 + 自身宽度，确保完全移出屏幕 */
+        transform: translateX(calc(-100vw - 100%));
+    }
+}
+
+/* 针对手机优化弹幕字体 */
+@media (max-width: 768px) {
+    .danmaku-item {
+        font-size: 16px;
     }
 }
