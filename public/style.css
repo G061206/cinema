@@ -533,3 +533,10 @@ body {
         font-size: 16px;
     }
 }
+
+/* 全屏模式下消除黑边 */
+.video-container:fullscreen,
+.video-container:-webkit-full-screen {
+    height: 100%;
+    padding-bottom: 0;
+}
