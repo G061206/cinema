@@ -8,11 +8,13 @@ let hlsPlayer = null;
 // DOM 元素
 const elements = {
     videoPlayer: document.getElementById('videoPlayer'),
+    videoContainer: document.querySelector('.video-container'), // 新增：视频容器
     videoOverlay: document.getElementById('videoOverlay'),
-    danmakuContainer: document.getElementById('danmakuContainer'), // 新增：弹幕容器
+    danmakuContainer: document.getElementById('danmakuContainer'),
     streamUrl: document.getElementById('streamUrl'),
     playBtn: document.getElementById('playBtn'),
     stopBtn: document.getElementById('stopBtn'),
+    fullscreenBtn: document.getElementById('fullscreenBtn'), // 新增：全屏按钮
     chatMessages: document.getElementById('chatMessages'),
     messageInput: document.getElementById('messageInput'),
     sendBtn: document.getElementById('sendBtn'),
@@ -182,7 +184,7 @@ function showDanmaku(data) {
     danmakuItem.textContent = escapeHtml(data.message);
 
     // 设置随机垂直位置，避免重叠 (使用85%的屏幕高度以防溢出)
-    const randomTop = Math.random() * 30;
+    const randomTop = Math.random() * 85;
     danmakuItem.style.top = `${randomTop}%`;
 
     // 设置随机动画时长，让弹幕速度不同
@@ -414,6 +416,47 @@ function setupEventListeners() {
             playVideo();
         }
     });
+
+    // 全屏按钮
+    elements.fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+    // 监听全屏状态变化
+    document.addEventListener('fullscreenchange', () => {
+        if (document.fullscreenElement) {
+            elements.fullscreenBtn.textContent = '🖥️ 退出全屏';
+        } else {
+            elements.fullscreenBtn.textContent = '⛶ 全屏';
+        }
+    });
+}
+
+// 新增：切换全屏
+function toggleFullscreen() {
+    const container = elements.videoContainer;
+    
+    if (!document.fullscreenElement) {
+        // 进入全屏
+        const requestFullscreen = 
+            container.requestFullscreen ||
+            container.mozRequestFullScreen || // Firefox
+            container.webkitRequestFullscreen || // Chrome, Safari, Opera
+            container.msRequestFullscreen; // IE/Edge
+        
+        if (requestFullscreen) {
+            requestFullscreen.call(container);
+        }
+    } else {
+        // 退出全屏
+        const exitFullscreen = 
+            document.exitFullscreen ||
+            document.mozCancelFullScreen ||
+            document.webkitExitFullscreen ||
+            document.msExitFullscreen;
+            
+        if (exitFullscreen) {
+            exitFullscreen.call(document);
+        }
+    }
 }
 
 // 页面加载完成后初始化
@@ -422,5 +465,4 @@ if (document.readyState === 'loading') {
 } else {
     init();
 }
-
 
