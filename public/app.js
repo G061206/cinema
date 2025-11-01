@@ -182,7 +182,7 @@ function showDanmaku(data) {
     danmakuItem.textContent = escapeHtml(data.message);
 
     // 设置随机垂直位置，避免重叠 (使用85%的屏幕高度以防溢出)
-    const randomTop = Math.random() * 85;
+    const randomTop = Math.random() * 30;
     danmakuItem.style.top = `${randomTop}%`;
 
     // 设置随机动画时长，让弹幕速度不同
@@ -422,4 +422,5 @@ if (document.readyState === 'loading') {
 } else {
     init();
 }
+
 
