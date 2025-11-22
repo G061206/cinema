@@ -302,7 +302,7 @@ body {
 .stream-input-group input:focus {
     outline: none;
     border-color: var(--input-focus-border);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-color) 10%, transparent);
 }
 
 .stream-tips {
@@ -502,7 +502,7 @@ body {
 .nickname-area input:focus {
     outline: none;
     border-color: var(--input-focus-border);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-color) 10%, transparent);
 }
 
 /* 按钮 - Material Design */
@@ -538,8 +538,8 @@ body {
 }
 
 .btn:active::before {
-    width: 300px;
-    height: 300px;
+    width: max(200%, 300px);
+    height: max(200%, 300px);
 }
 
 .btn:disabled {
