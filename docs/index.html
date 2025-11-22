@@ -27,7 +27,7 @@
                 </button>
                 <span class="connection-status" id="connectionStatus">
                     <span class="status-dot"></span>
-                    <span id="statusText">连接中...</span>
+                    <span id="statusText">UI 预览模式</span>
                 </span>
             </div>
         </header>
@@ -42,8 +42,9 @@
                     </video>
                     <div class="video-overlay" id="videoOverlay">
                         <div class="overlay-content">
-                            <h2>🎥 等待直播开始</h2>
-                            <p>请输入直播流地址并点击"开始播放"</p>
+                            <h2>🎥 UI 预览模式</h2>
+                            <p>这是前端界面的预览版本</p>
+                            <p style="margin-top: 10px; font-size: 14px;">完整功能需要部署后端服务</p>
                         </div>
                     </div>
                     <!-- 弹幕容器 -->
@@ -79,7 +80,29 @@
                 </div>
                 
                 <div class="chat-messages" id="chatMessages">
-                    <div class="system-message">欢迎来到影院！等待连接服务器...</div>
+                    <div class="system-message">欢迎来到影院！这是 UI 预览模式</div>
+                    <div class="message">
+                        <div class="message-header">
+                            <span class="message-nickname">演示用户1</span>
+                            <span class="message-time">14:30</span>
+                        </div>
+                        <div class="message-content">界面看起来很不错！</div>
+                    </div>
+                    <div class="message">
+                        <div class="message-header">
+                            <span class="message-nickname">演示用户2</span>
+                            <span class="message-time">14:31</span>
+                        </div>
+                        <div class="message-content">Material Design 风格很现代</div>
+                    </div>
+                    <div class="system-message">演示用户3 加入了聊天室</div>
+                    <div class="message">
+                        <div class="message-header">
+                            <span class="message-nickname">演示用户3</span>
+                            <span class="message-time">14:32</span>
+                        </div>
+                        <div class="message-content">响应式设计做得很好👍</div>
+                    </div>
                 </div>
                 
                 <div class="chat-input-area">
@@ -90,6 +113,7 @@
                             id="nicknameInput" 
                             placeholder="设置你的昵称"
                             maxlength="20"
+                            value="访客"
                         >
                         <button id="setNicknameBtn" class="btn btn-small">设置</button>
                     </div>
@@ -99,9 +123,8 @@
                             id="messageInput" 
                             placeholder="输入消息..."
                             maxlength="500"
-                            disabled
                         >
-                        <button id="sendBtn" class="btn btn-primary" disabled>发送</button>
+                        <button id="sendBtn" class="btn btn-primary">发送</button>
                     </div>
                 </div>
             </div>
@@ -110,6 +133,7 @@
         <!-- 页脚 -->
         <footer class="footer">
             <p>🎞️ 即用直播系统 | 基于 SRS + WebSocket + WebRTC</p>
+            <p style="margin-top: 8px; font-size: 12px; opacity: 0.7;">UI 预览模式 - 完整功能请部署完整版本</p>
         </footer>
     </div>
 
